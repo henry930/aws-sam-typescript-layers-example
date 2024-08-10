@@ -5,9 +5,10 @@ import DynamoDB from 'aws-sdk/clients/dynamodb';
 export default class CustomDynamoClient {
     table: string;
     docClient: DynamoDB.DocumentClient;
-
     constructor(table = process.env.SAMPLE_TABLE) {
-        this.docClient = new DynamoDB.DocumentClient();
+        this.docClient = new DynamoDB.DocumentClient({
+            region: 'eu-west-1'
+        });
         this.table = table;
     }
 
@@ -33,4 +34,5 @@ export default class CustomDynamoClient {
 
         return await this.docClient.put(params).promise();
     }
+
 }
